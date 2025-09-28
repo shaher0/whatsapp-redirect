@@ -1,14 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar">
 <head>
   <meta charset="UTF-8" />
-  <title>Redirect to WhatsApp</title>
-  <meta http-equiv="refresh" content="0; url=https://wa.me/97455054046" />
+  <title>إعادة التوجيه إلى واتساب</title>
   <script>
-    window.location.href = "https://wa.me/97455054046";
+    function getQueryParam(param) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(param);
+    }
+
+    window.onload = function () {
+      const phone = "1234567890"; // ← غيّر الرقم لهاتفك بدون +
+
+      // المنتجات حسب ID
+      const products = {
+        "1": "THE NEW BOX MEAL FROM",
+        "2": "NEW TWISTERS HAVE ARRIVED",
+        "3": "KIDS MENU",
+        "4": "Tender Crispy + Hot Wings",
+        "5": "Chicken Shawarma",
+        "6": "Double Chicken Shawarma",
+        "7": "Shawarma Platter – with fries"
+      };
+
+      const id = getQueryParam("id");
+      const product = products[id];
+
+      // الرسالة النهائية
+      const message = product
+        ? encodeURIComponent(`مرحبا، أنا مهتم بطلب ${product}`)
+        : encodeURIComponent("مرحبا، أنا مهتم بطلب منتج من متجرك");
+
+      // رابط واتساب النهائي
+      const waLink = `https://wa.me/${phone}?text=${message}`;
+
+      // توجيه مباشر
+      window.location.href = waLink;
+    };
   </script>
 </head>
 <body>
-  <p>جارٍ إعادة التوجيه إلى واتساب...</p>
+  <p style="text-align:center;">جاري إعادة التوجيه إلى واتساب...</p>
 </body>
 </html>
